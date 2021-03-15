@@ -4,6 +4,7 @@ using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
+using DSharpPlus.Entities;
 using Microsoft.Extensions.Logging;
 
 namespace LazuriteBot
@@ -36,6 +37,17 @@ namespace LazuriteBot
             });
             
             commands.RegisterCommands<LibHelpCommands>();
+            
+            // Food pics :yum:
+            discord.MessageCreated += async (s, e) =>
+            {
+                if (e.Message.Channel.Name.Equals("test") &&
+                    e.Message.Attachments.Count > 0 &&
+                    (e.Message.Attachments[0].FileName.Contains(".png") || e.Message.Attachments[0].FileName.Contains(".jpg")))
+                {
+                    await e.Message.CreateReactionAsync(DiscordEmoji.FromName(discord, ":camera_with_flash:"));
+                }
+            };
             
             await discord.ConnectAsync();
             await Task.Delay(-1);
