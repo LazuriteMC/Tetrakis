@@ -9,7 +9,7 @@ namespace LazuriteBot
         [Command("rayonhelp")]
         public async Task RayonHelpCommand(CommandContext context)
         {
-            await context.RespondAsync("yo this is a test");
+            await context.RespondAsync("https://docs.lazurite.dev/rayon/getting-started");
         }
     }
 }
