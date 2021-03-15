@@ -41,7 +41,7 @@ namespace LazuriteBot
             // Food pics :yum:
             discord.MessageCreated += async (s, e) =>
             {
-                if (e.Message.Channel.Name.Equals("test") &&
+                if (e.Message.Channel.Name.Equals("food-pics") &&
                     e.Message.Attachments.Count > 0 &&
                     (e.Message.Attachments[0].FileName.Contains(".png") || e.Message.Attachments[0].FileName.Contains(".jpg")))
                 {
