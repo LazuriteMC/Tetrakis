@@ -6,10 +6,22 @@ namespace LazuriteBot
 {
     public class LibHelpCommands : BaseCommandModule
     {
-        [Command("rayonhelp")]
-        public async Task RayonHelpCommand(CommandContext context)
+        // <summary>
+        // A command which provides information about using Rayon.
+        // </summary>
+        [Command("rayon")]
+        public async Task RayonCommand(CommandContext context)
         {
             await context.RespondAsync("https://docs.lazurite.dev/rayon/getting-started");
+        }
+        
+        // <summary>
+        // A command which provides information about using Transporter.
+        // </summary>
+        [Command("transporter")]
+        public async Task TransporterCommand(CommandContext context)
+        {
+            await context.RespondAsync("https://docs.lazurite.dev/transporter/getting-started");
         }
     }
 }
