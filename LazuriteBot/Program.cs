@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using DSharpPlus;
+using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.Logging;
 
 namespace LazuriteBot
@@ -17,6 +18,9 @@ namespace LazuriteBot
             MainAsync().GetAwaiter().GetResult();
         }
 
+        // <summary>
+        // Handles the main asynchronous execution and handling of command events.
+        // </summary>
         static async Task MainAsync()
         {
             var discord = new DiscordClient(new DiscordConfiguration()
@@ -26,14 +30,13 @@ namespace LazuriteBot
                 MinimumLogLevel = LogLevel.Debug
             });
             
-            discord.MessageCreated += async (s, e) =>
-            {
-                if (e.Message.Content.ToLower().StartsWith("ping"))
-                {
-                    await e.Message.RespondAsync("pong!");
-                }
-            };
-
+            var commands = discord.UseCommandsNext(new CommandsNextConfiguration()
+            { 
+                StringPrefixes = new[] { "??" }
+            });
+            
+            commands.RegisterCommands<LibHelpCommands>();
+            
             await discord.ConnectAsync();
             await Task.Delay(-1);
         }
