@@ -19,9 +19,9 @@ namespace LazuriteBot
             MainAsync().GetAwaiter().GetResult();
         }
 
-        // <summary>
-        // Handles the main asynchronous execution and handling of command events.
-        // </summary>
+        /// <summary>
+        /// Handles the main asynchronous execution and handling of command events.
+        /// </summary>
         static async Task MainAsync()
         {
             var discord = new DiscordClient(new DiscordConfiguration()
@@ -37,7 +37,7 @@ namespace LazuriteBot
             });
             
             commands.RegisterCommands<LibHelpCommands>();
-            
+
             // Food pics :yum:
             discord.MessageCreated += async (s, e) =>
             {
@@ -49,7 +49,7 @@ namespace LazuriteBot
                 }
             };
             
-            await discord.ConnectAsync();
+            await discord.ConnectAsync(new DiscordActivity("👀", ActivityType.Watching));
             await Task.Delay(-1);
         }
     }
