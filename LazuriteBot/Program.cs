@@ -29,12 +29,12 @@ namespace LazuriteBot
                 MinimumLogLevel = LogLevel.Debug
             });
             
-            var commands = discord.UseCommandsNext(new CommandsNextConfiguration()
+            var commands = discord.UseCommandsNext(new CommandsNextConfiguration
             { 
                 StringPrefixes = new[] { "??" }
             });
             
-            commands.RegisterCommands<LibHelpCommands>();
+            commands.RegisterCommands<InformationCommands>();
 
             // Food pics :yum:
             discord.MessageCreated += async (s, e) =>
@@ -47,7 +47,7 @@ namespace LazuriteBot
                 }
             };
             
-            await discord.ConnectAsync(new DiscordActivity("👀", ActivityType.Watching));
+            await discord.ConnectAsync(new DiscordActivity("Minecraft", ActivityType.Playing));
             await Task.Delay(-1);
         }
     }
