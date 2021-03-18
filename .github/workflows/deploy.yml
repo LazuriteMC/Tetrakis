@@ -5,13 +5,13 @@ on:
 
   workflow_dispatch:
   
-  jobs:
+jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-        
+
     - name: Sync
       env:
         dest: 'root@155.138.236.114:/LazuriteBot'
