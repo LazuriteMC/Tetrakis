@@ -1,19 +1,18 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
+using LazuriteBot.Modules.ReactionModule;
+using LazuriteBot.Modules.TagModule;
+using LazuriteBot.Modules.WikiModule;
 using Microsoft.Extensions.Logging;
 
 namespace LazuriteBot
 {
     class Program
     {
-        private static string token;
-        
         static void Main(string[] args)
         {
-            token = File.ReadAllText("token.txt");
             MainAsync().GetAwaiter().GetResult();
         }
 
@@ -24,28 +23,14 @@ namespace LazuriteBot
         {
             var discord = new DiscordClient(new DiscordConfiguration()
             {
-                Token = token,
+                Token = File.ReadAllText("Resources/token.txt"),
                 TokenType = TokenType.Bot,
                 MinimumLogLevel = LogLevel.Debug
             });
             
-            var commands = discord.UseCommandsNext(new CommandsNextConfiguration
-            { 
-                StringPrefixes = new[] { "??" }
-            });
-            
-            commands.RegisterCommands<InformationCommands>();
-
-            // Food pics :yum:
-            discord.MessageCreated += async (s, e) =>
-            {
-                if (e.Message.Channel.Name.Equals("food-pics") &&
-                    e.Message.Attachments.Count > 0 &&
-                    (e.Message.Attachments[0].FileName.Contains(".png") || e.Message.Attachments[0].FileName.Contains(".jpg")))
-                {
-                    await e.Message.CreateReactionAsync(DiscordEmoji.FromName(discord, ":camera_with_flash:"));
-                }
-            };
+            TagController.Register(discord);
+            WikiController.Register(discord);
+            ReactionController.Register(discord);
             
             await discord.ConnectAsync(new DiscordActivity("Minecraft", ActivityType.Playing));
             await Task.Delay(-1);
