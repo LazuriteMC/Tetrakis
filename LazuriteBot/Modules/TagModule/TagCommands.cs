@@ -14,7 +14,7 @@ namespace LazuriteBot.Modules.TagModule
             
             foreach (var key in TagController.Tags.Keys)
             {
-                tags += key + '\n';
+                tags += '\n' + key;
             }
             
             await ctx.RespondAsync(new DiscordEmbedBuilder()
