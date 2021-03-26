@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using DSharpPlus;
+using DSharpPlus.CommandsNext;
 using Newtonsoft.Json;
 
 namespace LazuriteBot.Modules.TagModule
@@ -12,6 +13,13 @@ namespace LazuriteBot.Modules.TagModule
         public static void Register(DiscordClient discord)
         {
             Tags = read();
+
+            var commands = discord.UseCommandsNext(new CommandsNextConfiguration()
+            {
+                StringPrefixes = new[] { "??" }
+            });
+            
+            commands.RegisterCommands<TagCommands>();
             
             discord.MessageCreated += async (s, e) =>
             {
