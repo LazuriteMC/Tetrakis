@@ -8,11 +8,11 @@ namespace LazuriteBot.Modules.TagModule
 {
     public class TagController
     {
-        public static Dictionary<string, Tag> Tags { get; private set; }
+        public static Dictionary<string, Tag> Tags { get; set; }
         
         public static void Register(DiscordClient discord)
         {
-            Tags = read();
+            Tags = Read();
 
             var commands = discord.UseCommandsNext(new CommandsNextConfiguration()
             {
@@ -36,10 +36,10 @@ namespace LazuriteBot.Modules.TagModule
             };
         }
                 
-        public static Dictionary<string, Tag> read()
+        public static Dictionary<string, Tag> Read()
         {
             Dictionary<string, Tag> output = new Dictionary<string, Tag>();
-            string[] fileNames = Directory.GetFiles("Resources/Tags");
+            string[] fileNames = Directory.GetFiles("Bot-Tags/");
 
             foreach (var fileName in fileNames)
             {

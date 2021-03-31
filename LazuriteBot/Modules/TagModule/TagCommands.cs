@@ -23,5 +23,16 @@ namespace LazuriteBot.Modules.TagModule
                 Description = $"```{tags}```"
             });
         }
+
+        [Command("reload")]
+        public async Task Reload(CommandContext ctx)
+        {
+            TagController.Tags = TagController.Read();
+            
+            await ctx.RespondAsync(new DiscordMessageBuilder()
+            {
+                Content = "Tags reloaded successfully."
+            });
+        }
     }
 }
