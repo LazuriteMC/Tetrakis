@@ -12,5 +12,11 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: pull the latest changes
+        run: git -C /root/tetrakis pull
+        
+      - name: build the project
+        run: dotnet build /root/tetrakis/Tetrakis
+        
       - name: restart the service
         run: systemctl restart tetrakis
