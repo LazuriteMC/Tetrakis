@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
 using LazuriteBot.Modules.ReactionModule;
+using LazuriteBot.Modules.Tag;
 using LazuriteBot.Modules.TagModule;
 using Microsoft.Extensions.Logging;
 

@@ -2,6 +2,7 @@
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
+using LazuriteBot.Modules.Tag;
 
 namespace LazuriteBot.Modules.TagModule
 {

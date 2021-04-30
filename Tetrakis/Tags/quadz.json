@@ -1,4 +1,12 @@
 ﻿{
   "Content": "Quadz is an FPV Drone simulator mod which adds drones, FPV goggles, etc.",
-  "Url" : "https://github.com/LazuriteMC/Quadz"
+  "Url": "https://github.com/LazuriteMC/Quadz",
+  
+  "Children": [
+    {
+      "Name": "mappings",
+      "Content": "Here are a list of controller mappings. This list is by no means exhaustive and you may have to configure your own custom mappings.",
+      "Url": "https://docs.lazurite.dev/quadz/controller-mappings"
+    }
+  ]
 }

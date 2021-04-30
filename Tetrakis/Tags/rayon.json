@@ -1,4 +1,17 @@
 ﻿{
   "Content": "Rayon is a rigid body simulation library designed to work with the Fabric API.",
-  "Url" : "https://github.com/LazuriteMC/Rayon"
+  "Url": "https://github.com/LazuriteMC/Rayon",
+  
+  "Children": [
+    {
+      "Name": "develop",
+      "Content": "Here are instructions on how to get started using Rayon in your own project.",
+      "Url": "https://docs.lazurite.dev/rayon/getting-started/"
+    },
+    {
+      "Name": "threading",
+      "Content": "Rayon makes use of multi threading mainly for performance reasons which means certain guidelines should be followed within your code in order to ensure thread safety.",
+      "Url": "https://docs.lazurite.dev/rayon/the-physics-thread"
+    }
+  ]
 }
