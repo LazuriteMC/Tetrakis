@@ -39,7 +39,7 @@ namespace LazuriteBot.Modules.TagModule
         public static Dictionary<string, Tag> Read()
         {
             Dictionary<string, Tag> output = new Dictionary<string, Tag>();
-            string[] fileNames = Directory.GetFiles("Bot-Tags/");
+            string[] fileNames = Directory.GetFiles(Program.TagPath);
 
             foreach (var fileName in fileNames)
             {

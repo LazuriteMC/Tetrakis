@@ -10,19 +10,28 @@ namespace LazuriteBot
 {
     class Program
     {
+	public static string TagPath { set; get; }
+
         static void Main(string[] args)
         {
-            MainAsync().GetAwaiter().GetResult();
+	    if (args.Length < 2)
+	    {
+	        //Console.WriteLine("Please enter the token and the tag path.");
+		System.Environment.Exit(-1);
+	    }
+
+	    TagPath = args[1];
+            MainAsync(args[0]).GetAwaiter().GetResult();
         }
 
         /// <summary>
         /// Handles the main asynchronous execution and handling of command events.
         /// </summary>
-        static async Task MainAsync()
+        static async Task MainAsync(string token)
         {
             var discord = new DiscordClient(new DiscordConfiguration()
             {
-                Token = File.ReadAllText("Resources/token.txt"),
+                Token = token,
                 TokenType = TokenType.Bot,
                 MinimumLogLevel = LogLevel.Debug
             });
