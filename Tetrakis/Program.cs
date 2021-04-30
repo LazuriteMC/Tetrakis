@@ -4,7 +4,6 @@ using DSharpPlus;
 using DSharpPlus.Entities;
 using LazuriteBot.Modules.ReactionModule;
 using LazuriteBot.Modules.TagModule;
-using LazuriteBot.Modules.WikiModule;
 using Microsoft.Extensions.Logging;
 
 namespace LazuriteBot
@@ -29,7 +28,6 @@ namespace LazuriteBot
             });
             
             TagController.Register(discord);
-            WikiController.Register(discord);
             ReactionController.Register(discord);
             
             await discord.ConnectAsync(new DiscordActivity("Minecraft", ActivityType.Playing));
