@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System;
 using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.Entities;
@@ -10,17 +10,17 @@ namespace LazuriteBot
 {
     class Program
     {
-	public static string TagPath { set; get; }
+	    public static string TagPath { set; get; }
 
         static void Main(string[] args)
         {
-	    if (args.Length < 2)
-	    {
-	        //Console.WriteLine("Please enter the token and the tag path.");
-		System.Environment.Exit(-1);
-	    }
+	        if (args.Length < 2)
+	        {
+	            Console.WriteLine("Please enter the token and the tag path.");
+		        Environment.Exit(-1);
+	        }
 
-	    TagPath = args[1];
+	        TagPath = args[1];
             MainAsync(args[0]).GetAwaiter().GetResult();
         }
 
