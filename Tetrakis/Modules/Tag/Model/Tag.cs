@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace LazuriteBot.Modules.Tag.Model
+namespace Tetrakis.Modules.Tag.Model
 {
     public record Tag(string Name, string Content, string Url, Tag[] Children)
     {

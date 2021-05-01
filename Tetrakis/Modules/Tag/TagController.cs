@@ -1,50 +1,51 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
-using LazuriteBot.Modules.TagModule;
+using DSharpPlus.EventArgs;
 using Newtonsoft.Json;
 
-namespace LazuriteBot.Modules.Tag
+namespace Tetrakis.Modules.Tag
 {
-    public class TagController
+    public static class TagController
     {
-        public static Dictionary<string, Model.Tag> Tags { get; set; }
+        public static Dictionary<string, Tetrakis.Modules.Tag.Model.Tag> Tags { get; set; }
         
         public static void Register(DiscordClient discord)
         {
+            // Read in all tags
             Tags = Read();
+            
+            // Register tag commands
+            discord.GetCommandsNext().RegisterCommands<TagCommands>();
+            
+            // Register tag message handler
+            discord.MessageCreated += OnMessage;
+        }
 
-            var commands = discord.UseCommandsNext(new CommandsNextConfiguration()
+        private static async Task OnMessage(DiscordClient client, MessageCreateEventArgs messageEvent)
+        {
+            if (messageEvent.Message.Content.StartsWith("??"))
             {
-                StringPrefixes = new[] { "??" }
-            });
-            
-            commands.RegisterCommands<TagCommands>();
-            
-            discord.MessageCreated += async (s, e) =>
-            {
-                if (e.Message.Content.StartsWith("??"))
+                var commands = messageEvent.Message.Content[2..].Split(' ');
+                var startingTag = Tags[commands[0]];
+
+                if (startingTag != null)
                 {
-                    var commands = e.Message.Content[2..].Split(' ');
-                    var startingTag = Tags[commands[0]];
-                    
-                    if (startingTag != null)
+                    var endingTag = commands.Length > 1 ? startingTag.GetChild(commands[^1]) : startingTag;
+
+                    if (endingTag != null)
                     {
-                        var endingTag = commands.Length > 1 ? startingTag.GetChild(commands[^1]) : startingTag;
-                        
-                        if (endingTag != null)
-                        {
-                            await e.Message.RespondAsync($"{endingTag.Content}\n<{endingTag.Url}>");
-                        }
+                        await messageEvent.Message.RespondAsync($"{endingTag.Content}\n<{endingTag.Url}>");
                     }
                 }
-            };
+            }
         }
                 
-        public static Dictionary<string, Model.Tag> Read()
+        public static Dictionary<string, Tetrakis.Modules.Tag.Model.Tag> Read()
         {
-            Dictionary<string, Model.Tag> output = new Dictionary<string, Model.Tag>();
+            Dictionary<string, Tetrakis.Modules.Tag.Model.Tag> output = new Dictionary<string, Tetrakis.Modules.Tag.Model.Tag>();
             string[] fileNames = Directory.GetFiles(Program.TagPath);
 
             foreach (var fileName in fileNames)
@@ -52,7 +53,7 @@ namespace LazuriteBot.Modules.Tag
                 JsonConvert.DeserializeAnonymousType(File.ReadAllText(fileName), new {});
                 output.Add(
                     new FileInfo(fileName).Name.Replace(".json", ""),
-                    JsonConvert.DeserializeObject<Model.Tag>(File.ReadAllText(fileName)));
+                    JsonConvert.DeserializeObject<Tetrakis.Modules.Tag.Model.Tag>(File.ReadAllText(fileName)));
             }
 
             return output;

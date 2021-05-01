@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DSharpPlus;
-using DSharpPlus.Entities;
-using LazuriteBot.Modules.ReactionModule;
-using LazuriteBot.Modules.Tag;
-using LazuriteBot.Modules.TagModule;
+using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.Logging;
+using Tetrakis.Modules.Highlight;
+using Tetrakis.Modules.Misc;
+using Tetrakis.Modules.Tag;
 
-namespace LazuriteBot
+namespace Tetrakis
 {
-    class Program
+    internal static class Program
     {
-	    public static string TagPath { set; get; }
+        public static string TagPath { private set; get; }
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
 	        if (args.Length < 2)
 	        {
@@ -28,8 +28,9 @@ namespace LazuriteBot
         /// <summary>
         /// Handles the main asynchronous execution and handling of command events.
         /// </summary>
-        static async Task MainAsync(string token)
+        private static async Task MainAsync(string token)
         {
+            // Set up client
             var discord = new DiscordClient(new DiscordConfiguration()
             {
                 Token = token,
@@ -37,10 +38,18 @@ namespace LazuriteBot
                 MinimumLogLevel = LogLevel.Debug
             });
             
-            TagController.Register(discord);
-            ReactionController.Register(discord);
+            // Set up command prefix
+            discord.UseCommandsNext(new CommandsNextConfiguration()
+            {
+                StringPrefixes = new[] { "!" }
+            });
             
-            await discord.ConnectAsync(new DiscordActivity("Minecraft", ActivityType.Playing));
+            // Register module controllers
+            TagController.Register(discord);
+            MiscController.Register(discord);
+            HighlightController.Register(discord);
+
+            await discord.ConnectAsync();
             await Task.Delay(-1);
         }
     }

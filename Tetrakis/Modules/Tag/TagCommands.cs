@@ -2,9 +2,8 @@
 using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
-using LazuriteBot.Modules.Tag;
 
-namespace LazuriteBot.Modules.TagModule
+namespace Tetrakis.Modules.Tag
 {
     public class TagCommands : BaseCommandModule
     {

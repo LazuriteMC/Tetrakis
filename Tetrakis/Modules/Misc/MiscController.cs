@@ -1,12 +1,24 @@
-﻿using DSharpPlus;
+﻿using System.Threading.Tasks;
+using DSharpPlus;
+using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
+using DSharpPlus.EventArgs;
 
-namespace LazuriteBot.Modules.ReactionModule
+namespace Tetrakis.Modules.Misc
 {
-    public class ReactionController
+    public static class MiscController
     {
+        public static ulong LazuriteGuild = 719662192601071747;
+        public static ulong LazuriteNewsChannel = 719669273621954641;
+        
         public static void Register(DiscordClient discord)
         {
+            // Register misc commands
+            discord.GetCommandsNext().RegisterCommands<MiscCommands>();
+            
+            // Register the member join listener
+            discord.GuildMemberAdded += OnMemberJoin;
+            
             // Food pics :yum:
             discord.MessageCreated += async (s, e) =>
             {
@@ -17,6 +29,14 @@ namespace LazuriteBot.Modules.ReactionModule
                     await e.Message.CreateReactionAsync(DiscordEmoji.FromName(discord, ":camera_with_flash:"));
                 }
             };
+        }
+
+        public static async Task OnMemberJoin(DiscordClient client, GuildMemberAddEventArgs args)
+        {
+            if (args.Guild.Id == LazuriteGuild)
+            {
+                await args.Guild.Channels[LazuriteNewsChannel].SendMessageAsync($"New member: {args.Member.DisplayName}");
+            }
         }
     }
 }
