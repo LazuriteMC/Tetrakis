@@ -3,9 +3,9 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 
-namespace Tetrakis.Modules.Misc
+namespace Tetrakis.Modules.Moderation
 {
-    public class MiscCommands : BaseCommandModule
+    public class ModerationCommands : BaseCommandModule
     {
         [Command("members")]
         public async Task Members(CommandContext ctx)
