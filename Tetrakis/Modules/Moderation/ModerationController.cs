@@ -10,19 +10,19 @@ namespace Tetrakis.Modules.Moderation
     {
         public static void Register(DiscordClient discord)
         {
-            // Register misc commands
+            // Register moderation commands
             discord.GetCommandsNext().RegisterCommands<ModerationCommands>();
             
             // Register the member join listener
-            discord.GuildMemberAdded += OnMemberJoin;
+            // discord.GuildMemberAdded += OnMemberJoin;
         }
 
-        private static async Task OnMemberJoin(DiscordClient client, GuildMemberAddEventArgs args)
-        {
-            if (LazuriteGuild.Equals(args.Guild))
-            {
-                await LazuriteGuild.GetChannel(args.Guild, "news").SendMessageAsync($"New member: {args.Member.DisplayName}");
-            }
-        }
+        // private static async Task OnMemberJoin(DiscordClient client, GuildMemberAddEventArgs args)
+        // {
+            // if (LazuriteGuild.Equals(args.Guild))
+            // {
+                // await LazuriteGuild.GetChannel(args.Guild, "news").SendMessageAsync($"New member: {args.Member.DisplayName}");
+            // }
+        // }
     }
 }

@@ -10,14 +10,7 @@ namespace Tetrakis.Modules.Moderation
         [Command("members")]
         public async Task Members(CommandContext ctx)
         {
-            if (ctx.Guild == null)
-            {
-                await ctx.RespondAsync(new DiscordMessageBuilder()
-                {
-                    Content =  "This command is only available within discord servers."
-                });
-            }
-            else
+            if (ctx.Guild != null)
             {
                 await ctx.RespondAsync(new DiscordMessageBuilder()
                 {

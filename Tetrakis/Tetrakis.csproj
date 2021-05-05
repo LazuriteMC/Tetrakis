@@ -11,6 +11,7 @@
       <PackageReference Include="DSharpPlus.Interactivity" Version="4.0.0-rc2" />
       <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+      <PackageReference Include="System.Data.SQLite" Version="1.0.113.7" />
     </ItemGroup>
 
 </Project>

@@ -3,25 +3,28 @@ using System.Threading.Tasks;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.Logging;
-using Tetrakis.Modules.Highlight;
 using Tetrakis.Modules.Misc;
+using Tetrakis.Modules.Moderation;
 using Tetrakis.Modules.Tag;
+using Tetrakis.Modules.Highlight;
 
 namespace Tetrakis
 {
     internal static class Program
     {
         public static string TagPath { private set; get; }
+        public static string DBPath { private set; get; }
 
         private static void Main(string[] args)
         {
-	        if (args.Length < 2)
+	        if (args.Length < 3)
 	        {
-	            Console.WriteLine("Please enter the token and the tag path.");
+	            Console.WriteLine("Please enter the token, tag path, and db path.");
 		        Environment.Exit(-1);
 	        }
 
 	        TagPath = args[1];
+            DBPath = args[2];
             MainAsync(args[0]).GetAwaiter().GetResult();
         }
 
@@ -30,7 +33,7 @@ namespace Tetrakis
         /// </summary>
         private static async Task MainAsync(string token)
         {
-            // Set up client
+           // Set up client
             var discord = new DiscordClient(new DiscordConfiguration()
             {
                 Token = token,
@@ -46,8 +49,9 @@ namespace Tetrakis
             
             // Register module controllers
             TagController.Register(discord);
-            MiscController.Register(discord);
             HighlightController.Register(discord);
+            ModerationController.Register(discord);
+            MiscController.Register(discord);
 
             await discord.ConnectAsync();
             await Task.Delay(-1);
