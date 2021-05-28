@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Tetrakis.Modules.Misc;
 using Tetrakis.Modules.Moderation;
 using Tetrakis.Modules.Tag;
-using Tetrakis.Modules.Highlight;
 
 namespace Tetrakis
 {
@@ -49,7 +48,6 @@ namespace Tetrakis
             
             // Register module controllers
             TagController.Register(discord);
-            HighlightController.Register(discord);
             ModerationController.Register(discord);
             MiscController.Register(discord);
 
