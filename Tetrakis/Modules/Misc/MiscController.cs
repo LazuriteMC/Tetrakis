@@ -7,10 +7,10 @@ namespace Tetrakis.Modules.Misc
     {
         public static void Register(DiscordClient discord)
         {
-            // Food pics :yum:
+            // Tea pics :yum:
             discord.MessageCreated += async (s, e) =>
             {
-                if (e.Message.Channel.Name.Equals("food-pics") &&
+                if (e.Message.Channel.Name.Equals("tea-pics") &&
                     e.Message.Attachments.Count > 0 &&
                     (e.Message.Attachments[0].FileName.Contains(".png") ||
                      e.Message.Attachments[0].FileName.Contains(".jpg")))
