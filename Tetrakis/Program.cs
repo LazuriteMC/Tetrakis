@@ -5,6 +5,7 @@ using DSharpPlus.CommandsNext;
 using Microsoft.Extensions.Logging;
 using Tetrakis.Modules.Misc;
 using Tetrakis.Modules.Moderation;
+using Tetrakis.Modules.Music;
 using Tetrakis.Modules.Tag;
 
 namespace Tetrakis
@@ -49,6 +50,7 @@ namespace Tetrakis
             // Register module controllers
             TagController.Register(discord);
             ModerationController.Register(discord);
+            MusicController.Register(discord);
             MiscController.Register(discord);
 
             await discord.ConnectAsync();
