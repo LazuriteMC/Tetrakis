@@ -40,12 +40,12 @@ namespace Tetrakis.Modules.Music
             if (!MusicController.NowPlaying.ContainsKey(ctx.Guild))
             {
                 MusicController.NowPlaying.Add(ctx.Guild, new NowPlaying(voiceNextConnection, ctx.Guild));
-                MusicController.NowPlaying[ctx.Guild].Play();
-                ctx.RespondAsync("Now playing **" + video.Title + "**"); // no await :<
+                await ctx.RespondAsync("Now playing **" + video.Title + "**");
+                await MusicController.NowPlaying[ctx.Guild].Play();
             }
             else
             {
-                ctx.RespondAsync("Queued **" + video.Title + "**"); // no await :<
+                await ctx.RespondAsync("Queued **" + video.Title + "**");
             }
         }
         
