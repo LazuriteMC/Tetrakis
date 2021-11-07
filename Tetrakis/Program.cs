@@ -13,18 +13,16 @@ namespace Tetrakis
     internal static class Program
     {
         public static string TagPath { private set; get; }
-        public static string DBPath { private set; get; }
 
         private static void Main(string[] args)
         {
-	        if (args.Length < 3)
+	        if (args.Length < 2)
 	        {
-	            Console.WriteLine("Please enter the token, tag path, and db path.");
+	            Console.WriteLine("Please enter the token and tag path");
 		        Environment.Exit(-1);
 	        }
 
 	        TagPath = args[1];
-            DBPath = args[2];
             MainAsync(args[0]).GetAwaiter().GetResult();
         }
 
