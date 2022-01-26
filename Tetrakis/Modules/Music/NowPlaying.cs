@@ -58,9 +58,8 @@ namespace Tetrakis.Modules.Music
 
                 // Play!!!!
                 var transmit = _connection.GetTransmitSink();
-                await ffout.CopyToAsync(transmit, cancellationToken: _cancellationSource.Token);
+                ffout.CopyToAsync(transmit, cancellationToken: _cancellationSource.Token);
             }
-
         }
     }
 }

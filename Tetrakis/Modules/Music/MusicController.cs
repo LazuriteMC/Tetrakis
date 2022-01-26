@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.Entities;
@@ -22,6 +24,17 @@ namespace Tetrakis.Modules.Music
             
             // Register moderation commands
             discord.GetCommandsNext().RegisterCommands<MusicCommands>();
+            
+            // Disconnect from VC if nobody is there anymore.
+            discord.VoiceStateUpdated += async (s, e) =>
+            {
+                var connection = s.GetVoiceNext().GetConnection(e.Guild);
+                if (connection != null && connection.TargetChannel == e.Channel && !e.Channel.Users.Any())
+                {
+                    NowPlaying[e.Guild].Cancel();
+                    s.GetVoiceNext().GetConnection(e.Guild).Disconnect();
+                }
+            };
         }
     }
 }
