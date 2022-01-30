@@ -10,7 +10,7 @@ namespace Tetrakis.Modules.Tag
 {
     public static class TagController
     {
-        public static Dictionary<string, Tetrakis.Modules.Tag.Model.Tag> Tags { get; set; }
+        public static Dictionary<string, Model.Tag> Tags { get; set; }
         
         public static void Register(DiscordClient discord)
         {
@@ -43,9 +43,9 @@ namespace Tetrakis.Modules.Tag
             }
         }
                 
-        public static Dictionary<string, Tetrakis.Modules.Tag.Model.Tag> Read()
+        public static Dictionary<string, Model.Tag> Read()
         {
-            Dictionary<string, Tetrakis.Modules.Tag.Model.Tag> output = new Dictionary<string, Tetrakis.Modules.Tag.Model.Tag>();
+            Dictionary<string, Model.Tag> output = new Dictionary<string, Model.Tag>();
             string[] fileNames = Directory.GetFiles(Program.TagPath);
 
             foreach (var fileName in fileNames)
@@ -53,7 +53,7 @@ namespace Tetrakis.Modules.Tag
                 JsonConvert.DeserializeAnonymousType(File.ReadAllText(fileName), new {});
                 output.Add(
                     new FileInfo(fileName).Name.Replace(".json", ""),
-                    JsonConvert.DeserializeObject<Tetrakis.Modules.Tag.Model.Tag>(File.ReadAllText(fileName)));
+                    JsonConvert.DeserializeObject<Model.Tag>(File.ReadAllText(fileName)));
             }
 
             return output;

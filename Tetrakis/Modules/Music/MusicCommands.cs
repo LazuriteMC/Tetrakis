@@ -14,7 +14,7 @@ namespace Tetrakis.Modules.Music
     public class MusicCommands : BaseCommandModule
     {
         [Command("play")]
-        public async Task Play(CommandContext ctx, [RemainingText] string url)
+        public async Task Play(CommandContext ctx, [RemainingText] string arg)
         {
             var voiceNext = ctx.Client.GetVoiceNext();
             var voiceNextConnection = voiceNext.GetConnection(ctx.Guild);
@@ -32,7 +32,17 @@ namespace Tetrakis.Modules.Music
 
             var queue = MusicController.Queues[ctx.Guild];
             var youtube = new YoutubeClient();
-            var video = await youtube.Videos.GetAsync(url);
+            
+            if (!(Uri.TryCreate(arg, UriKind.Absolute, out var uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)))
+            {
+                await foreach (var result in youtube.Search.GetVideosAsync(arg))
+                {
+                    arg = result.Url;
+                    break;
+                }
+            }
+            
+            var video = await youtube.Videos.GetAsync(arg);
             
             voiceNextConnection ??= await voiceNext.ConnectAsync(channel);
             queue.Enqueue(video);
