@@ -7,6 +7,7 @@ using DSharpPlus.CommandsNext.Attributes;
 using DSharpPlus.Entities;
 using DSharpPlus.VoiceNext;
 using YoutubeExplode;
+using YoutubeExplode.Common;
 using YoutubeExplode.Videos;
 
 namespace Tetrakis.Modules.Music
@@ -35,11 +36,7 @@ namespace Tetrakis.Modules.Music
             
             if (!(Uri.TryCreate(arg, UriKind.Absolute, out var uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)))
             {
-                await foreach (var result in youtube.Search.GetVideosAsync(arg))
-                {
-                    arg = result.Url;
-                    break;
-                }
+                arg = (await youtube.Search.GetVideosAsync(arg))[0].Url;
             }
             
             var video = await youtube.Videos.GetAsync(arg);
