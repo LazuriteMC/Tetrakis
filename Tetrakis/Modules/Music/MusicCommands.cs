@@ -36,7 +36,11 @@ namespace Tetrakis.Modules.Music
             
             if (!(Uri.TryCreate(arg, UriKind.Absolute, out var uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps)))
             {
-                arg = (await youtube.Search.GetVideosAsync(arg))[0].Url;
+                await foreach (var result in youtube.Search.GetVideosAsync(arg))
+                {
+                    arg = result.Url;
+                    break;
+                }
             }
             
             var video = await youtube.Videos.GetAsync(arg);
